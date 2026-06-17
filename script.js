@@ -10,6 +10,8 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 0,
                 usable: true,
+                instantUse: false,
+                useId: 0,
             },
             "Golden Ham": {
                 price: 20,
@@ -18,7 +20,9 @@ const traders = {
                 sells: true,
                 sellsforSC: 50,
                 sellsfor: 100,
-                usable: false,
+                usable: true,
+                instantUse: false,
+                useId: 1,
             },
             "Expired Bacon": {
                 price: 1,
@@ -27,6 +31,8 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 0,
                 usable: true,
+                instantUse: false,
+                useId: 2,
             }
         },
         rareLoot: {
@@ -37,7 +43,9 @@ const traders = {
             sells: true,
             sellsforSC: 9999,
             sellsfor: 10,
-            usable: false,
+            usable: true,
+            instantUse: false,
+            useId: 3,
         },
         priority: 1
     },
@@ -52,6 +60,8 @@ const traders = {
                 sellsforSC: -999,
                 sellsfor: 10,
                 usable: true,
+                instantUse: false,
+                useId: 4,
             },
             "PlayStation 2 Slim": {
                 price: 500,
@@ -60,6 +70,8 @@ const traders = {
                 sellsforSC: 20000,
                 sellsfor: 800,
                 usable: true,
+                instantUse: false,
+                useId: 5,
             },
             "PC Advice": {
                 price: 10,
@@ -68,6 +80,8 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 0,
                 usable: true,
+                instantUse: false,
+                useId: 6,
             }
         },
         rareLoot: {
@@ -79,6 +93,8 @@ const traders = {
             sellsforSC: false,
             sellsfor: 0,
             usable: true,
+            instantUse: false,
+            useId: 7,
         },
         priority: 3
     },
@@ -93,6 +109,8 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 1,
                 usable: true,
+                instantUse: false,
+                useId: 8,
             },
             "6 or 7 social credits": {
                 price: 6,
@@ -101,6 +119,7 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 0,
                 usable: false,
+                instantUse: true,
             },
             "Maths homework advice": {
                 price: 15,
@@ -109,6 +128,8 @@ const traders = {
                 sellsforSC: 5,
                 sellsfor: 1,
                 usable: true,
+                instantUse: false,
+                useId: 9,
             }},
         rareLoot: {
             title: "67 coins and Social credits",
@@ -119,6 +140,7 @@ const traders = {
             sellsforSC: false,
             sellsfor: 0,
             usable: false,
+            instantUse: true,
         },
         priority: 1
     },
@@ -133,6 +155,7 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 0,
                 usable: false,
+                instantUse: true,
             },
             "Navy application": {
                 price: -10,
@@ -141,6 +164,7 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 0,
                 usable: false,
+                instantUse: true,
             },
             "Army application": {
                 price: -10,
@@ -149,6 +173,7 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 0,
                 usable: false,
+                instantUse: true,
             }
         },
         rareLoot: {
@@ -160,6 +185,8 @@ const traders = {
             sellsforSC: 9999999999999999,
             sellsfor: 50,
             usable: true,
+            instantUse: false,
+            useId: 10,
         },
         priority: 3
     },
@@ -174,6 +201,8 @@ const traders = {
                 sellsforSC: -12,
                 sellsfor: 1,
                 usable: true,
+                instantUse: false,
+                useId: 11,
             },
             "Weathered Hat": {
                 price: 3,
@@ -181,7 +210,8 @@ const traders = {
                 sells: false,
                 sellsforSC: false,
                 sellsfor: 0,
-                usable: true,
+                usable: false,
+                instantUse: false,
             },
             "Weathered tennis racket": {
                 price: 10,
@@ -190,22 +220,28 @@ const traders = {
                 sellsforSC: false,
                 sellsfor: 50,
                 usable: true,
+                instantUse: false,
+                useId: 12,
             },
             "Chess advice": {
                 price: 0,
                 id: 20,
                 sells: false,
                 sellsforSC: false,
-                sellsfor: 50,
+                sellsfor: 5,
                 usable: true,
+                instantUse: false,
+                useId: 13,
             },
             "Unstable SMP summary": {
                 price: 0,
                 id: 21,
                 sells: false,
                 sellsforSC: false,
-                sellsfor: 50,
+                sellsfor: 0,
                 usable: true,
+                instantUse: false,
+                useId: 14,
             },
             "Politics advice": {
                 price: "",
@@ -215,6 +251,8 @@ const traders = {
                 sellsforSC: -10,
                 sellsfor: 0,
                 usable: true,
+                instantUse: false,
+                useId: 15,
             }
         },
         rareLoot: {
@@ -226,14 +264,23 @@ const traders = {
             sellsforSC: false,
             sellsfor: 50,
             usable: true,
+            instantUse: true,
         },
         priority: 2,
-    }
+    },
 };
 
 const exchangeRateSCPer1coin = 10;
 
 const armyClasses = ["Servant 3rd Class", "Servant 2nd Class", "Servant 1st Class", "Soldier", "Lieutenant", "Captain", "Developer", "Donald Trump", "Joe Biden", "Barack Obama", "George Bush", "Error", "MrBeast", "Elon Musk"];
+
+const PCAdvices = ["Use intel 14th gen and DDR4 RAM", "I use Arch btw", "I use Windows Vista btw", "Onedrive is slow and is not worth it!", "The best type of storage is Blu rays and DVDs", "Only good PCs and PC parts are made by Asus"];
+const artyomCasinoGiftCards = ["AbobaSMP", "Beta"];
+const mathEquasions = ["π = 3.14159265359", "e = 2.71828182846", "2 + 2 = 5", "Why was 6 fraid of 7? Because 7 ate nine!"];
+const chessAdvices = ["DA ROOK", "Git gud", "Play more chess!"];
+const politicsAdvices = ["Bro, every country is wrong atm"];
+
+const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()"];
 
 // Variables
 let inventory = [];
@@ -249,6 +296,9 @@ let inventoryOpen = false;
 let armyClass = armyClasses[0];
 let armyButtonClicked = 0;
 let selectedItem;
+let selectedTarget;
+let useAttempts = 0;
+let eternalOinkActivated = false;
 
 // Constants
 const offer = document.getElementById("offer");
@@ -273,6 +323,7 @@ const armyHelp = document.querySelector(".armyHelp");
 const itemMenuTitle = document.getElementById("itemMenuTitle");
 const sellButton = document.getElementById("sellButton");
 const itemMenuContainer = document.getElementById("itemMenu");
+const useButton = document.getElementById("useButton");
 
 
 // Declaring buttons
@@ -306,6 +357,112 @@ const buttonr12 = document.getElementById("buttonr12");
 const buttonr13 = document.getElementById("buttonr13");
 const buttonr14 = document.getElementById("buttonr14");
 const buttonr15 = document.getElementById("buttonr15");
+
+// Use functions
+
+function eat(food) {
+    alert("You eat " + food + " giving you just enough energy to earn 10 coins");
+    coinsAmount += 10;
+    coinDisplay.textContent = "Coins: " + coinsAmount;
+};
+
+function eatPoison(food) {
+    alert("You eat " + food + " (which you really regret and pay doctors all your money for treatment and somehow still get into debt)");
+    coinsAmount = -10;
+    coinDisplay.textContent = "Coins: " + coinsAmount;
+};
+
+function eternalOink() {
+    alert("John Pork oinks and accidentally reveals more of his pictures, causing you to realize the purpose of life, and by becoming a higher specie do you realize a way to become rich AND be respect, getting you 12 social credits and 3 coins");
+    coinsAmount += 3;
+    coinDisplay.textContent = "Coins: " + coinsAmount;
+    socialCreditsAmount += 12;
+    socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+}
+
+function ffxivActivation() {
+    buttonr2.style.display = "block";
+    alert("Thank you for purchasing Final Fantasy 14 Online. Now you can access FFXIV! ;)");
+}
+
+function PS2MenuActivation() {
+    buttonr3.style.display = "block";
+    alert("Welcome to PlayStation! Please press the turn on PS2 button to proceed");
+}
+
+function PCAdvice() {
+    let currentPCAdvice = "PC Advice: " + PCAdvices[Math.floor(Math.random() * PCAdvices.length)];
+    alert(currentPCAdvice);
+    coinsAmount += 15;
+    coinDisplay.textContent = "Coins: " + coinsAmount
+}
+
+function artyomCasinoGiftCard() {
+    alert('Your gift card code: "' + artyomCasinoGiftCards[Math.floor(Math.random() * artyomCasinoGiftCards.length)] + '"');
+}
+
+function mathsStuff(subject, source) {
+    let currentMathAdviceNo = Math.floor(Math.random() * mathEquasions.length);
+    if (currentMathAdviceNo == 1) {
+        new Audio('Media/E.mp3').play();
+    };
+    alert("You open the " + subject + " " + source + " gave you, and find " + mathEquasions[currentMathAdviceNo]);
+};
+
+function bingChilling() {
+    socialCreditsAmount += 9999999999999999;
+    socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+    alert("You Eat Bing Chilling, and become a higher level specie. Infinite social credits achieved. 成功率：100%。你現在對政府來說立於不敗之地，因為你的社會信用比偉大的習近平還要高。");
+    new Audio('Media/bing-chilling.mp3').play();
+    setTimeout("new Audio('Media/taco-bell-bong-sfx.mp3').play()", 2000);
+};
+
+function chessBoardActivation() {
+    window.open("https://www.chess.com/play/computer/");
+};
+
+function tennisGame() {
+    if (Math.floor(Math.random() * 2) == 1) {
+        alert("You attempt playing tennis with the pros, but you lose the game, causing you to lose 150 social credits. Then, you accidentally get injured by the ball, and you spend all your money on doctor, and somehow still end up in a debt");
+        socialCreditsAmount -= 150;
+        coinsAmount = -10;
+        coinDisplay.textContent = "Coins: " + coinsAmount;
+        socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+    }
+    else {
+        alert("You attempt playing tennis with the world champion, AND YOU WIN, earning you 20000 social credits and 150 coins");
+        socialCreditsAmount += 20000;
+        coinsAmount += 150;
+        coinDisplay.textContent = "Coins: " + coinsAmount;
+        socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+    };
+};
+
+function chessAdvice() {
+    alert(chessAdvices[Math.floor(Math.random()*chessAdvices.length)]);
+};
+
+function politicsAdvice() {
+    alert(politicsAdvices[Math.floor(Math.random()*politicsAdvices.length)]);
+};
+
+function smpSummary() {
+    socialCreditsAmount -= 15;
+    socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+    coinsAmount = 0;
+    coinDisplay.textContent = "Coins " + coinsAmount;
+    alert("So basically, long story short, this guy killed that guy and then they did this and that [you fall asleep, and when you wake up, you find your wallet containing 15 coins being stolen]");
+};
+
+function goldenHam() {
+    alert("The golden ham you are holding is sparkling with gold. It immediately gives you 500 social credits, and the moment you eat it you triple the amount of social credits you had. Then, you find that it had sprinkled with coins this entire time and earn 200 coins. But then you look in your bank account and see that your wallet was TRIPLED");
+    socialCreditsAmount *= 3;
+    socialCreditsAmount += 500;
+    socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+    coinsAmount *= 2;
+    coinsAmount += 200;
+    coinDisplay.textContent = "Coins: " + coinsAmount;
+};
 
 // Main script
 
@@ -348,6 +505,15 @@ function addSocialCredits(amount) {
 }
 
 function inventoryCheck() {
+    if (eternalOinkActivated == true) {
+        alert("John pork oinks");
+        coinsAmount += 3;
+        socialCreditsAmount += 12;
+        coinDisplay.textContent = "Coins: " + coinsAmount;
+        socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+    }
+
+
     if (hasItem(13)) {
         // alert("Success");
         socialCreditsAmount += 10;
@@ -355,9 +521,17 @@ function inventoryCheck() {
         inventory = removeItem(13);
     };
     if (hasItem(5)) {
-        socialCreditsAmount += 999;
-        alert("Thank you for purchasing Final Fantasy 14 Online");
-        socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+        let ffxivAmount = 0;
+        for (i = 0; i < inventory.length; i++) {
+            if (inventory[i].id == 5) {
+                ffxivAmount += 1;
+            }
+        }
+        for (i = 0; i < ffxivAmount; i++) {
+            socialCreditsAmount += 999;
+            alert("Thank you for purchasing Final Fantasy 14 Online");
+            socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+        }
     };
     if (hasItem(16)) {
         alert("Thank you for purchasing BING CHILLING! 感謝您購買 BING CHILLING");
@@ -561,9 +735,15 @@ function armyMenuOpening() {
     }
 }
 
-function navyMenu() {
+function chessClubMenu() {
     alert("Coming soon!");
+    console.log("Chess club menu clicked!");
 };
+
+function PS2Menu() {
+    alert("Coming soon!");
+    console.log("PS2 Menu clicked!");
+}
 
 function armyButton() {
     if (armyClass == armyClasses[0]) {
@@ -592,7 +772,7 @@ function armyButton() {
     }
     else {
         armyButtonClicked += 1;
-        if (armyButtonClicked == 10) {
+        if (armyButtonClicked == 10) {  
             armyButtonClicked = 0;
             addSocialCredits(100);
         }
@@ -680,19 +860,22 @@ function buyNewRank(price, priceSC) {
     }
 }
 
-function sellItem(item, target) {
-    console.log(item);
-    console.log(item.sellsfor);
-    if (item.sells == true) {
+function sellItem() {
+    console.log(selectedItem);
+    console.log(selectedItem.sellsfor);
+    if (selectedItem.id == 4) {
+        eternalOinkActivated = false;
+    }
+    if (selectedItem.sells == true) {
         itemMenuContainer.style.display = "none";
-        coinsAmount += item.sellsfor;
+        coinsAmount += selectedItem.sellsfor;
         coinDisplay.textContent = "Coins: " + coinsAmount;
-        if (item.sellsforSC != false) {
-            socialCreditsAmount += item.sellsforSC;
+        if (selectedItem.sellsforSC != false) {
+            socialCreditsAmount += selectedItem.sellsforSC;
             socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
         }
-        inventory.pop(getItem(item.id));
-        target.remove();
+        inventory.pop(getItem(selectedItem.id));
+        selectedTarget.remove();
     }
     else {
         alert("Unsellable item");
@@ -719,11 +902,54 @@ function updateClassInfo() {
 
 function closeItemMenu() {
     itemMenuContainer.style.display = "none";
+    sellButton.removeEventListener("click", sellItem);
+    useButton.removeEventListener("click", useItem);
+}
+
+function useItem() {
+    console.log(selectedItem);
+    if (selectedItem.instantUse == true) {
+        useAttempts += 1;
+        if (useAttempts == 1) {
+            alert("The item was already used. Press use again to discard the item.");
+        }
+        else {
+            itemMenuContainer.style.display = "none";
+            inventory.pop(getItem(item.id));
+            selectedTarget.remove();
+            alert("Item discarded");
+        };
+    }
+    else if (selectedItem.usable == true) {
+        // alert("Item is usable, but the use is... Coming soon! Stay tuned! Debug: Clicked item: " + item.title);
+        let functionExecute = useFunctionBridge[selectedItem.useId];
+        console.log(functionExecute);
+        eval(functionExecute);
+        itemMenuContainer.style.display = "none";
+        if (selectedItem.useId != 3) {
+            inventory.pop(getItem(selectedItem.id));
+            selectedTarget.remove();
+        };
+    }
+    else {
+        alert("Item is not usable!");
+    };
 }
 
 function itemMenu(item, target) {
+    console.log(item);
+    useAttempts = 0;
+    console.log(item);
     selectedItem = item;
+    selectedTarget = target;
+    console.log(selectedItem);
     itemMenuTitle.textContent = "Are you sure you'd like to sell " + item.title + " for " + item.sellsfor + " coins?";
-    sellButton.addEventListener("click", () => sellItem(item, target));
+    sellButton.addEventListener("click", sellItem);
+    useButton.addEventListener("click", useItem);
     itemMenuContainer.style.display = "flex";
 }
+
+function ffxivMenu() {
+    alert("Coming soon!");
+    console.log("FFXIV Menu clicked!");
+};
