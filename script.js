@@ -270,9 +270,10 @@ const traders = {
     },
 };
 
-const exchangeRateSCPer1coin = 10;
+let exchangeRateSCPer1coin = 10;
 
 const armyClasses = ["Servant 3rd Class", "Servant 2nd Class", "Servant 1st Class", "Soldier", "Lieutenant", "Captain", "Developer", "Donald Trump", "Joe Biden", "Barack Obama", "George Bush", "Error", "MrBeast", "Elon Musk"];
+const armyClassPrices = [150, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 10000, 15000];
 
 const PCAdvices = ["Use intel 14th gen and DDR4 RAM", "I use Arch btw", "I use Windows Vista btw", "Onedrive is slow and is not worth it!", "The best type of storage is Blu rays and DVDs", "Only good PCs and PC parts are made by Asus"];
 const artyomCasinoGiftCards = ["AbobaSMP", "Beta"];
@@ -294,11 +295,13 @@ let armyOpen = false;
 let navyOpen = false;
 let inventoryOpen = false;
 let armyClass = armyClasses[0];
+let currentArmyClassNo = 0;
 let armyButtonClicked = 0;
 let selectedItem;
 let selectedTarget;
 let useAttempts = 0;
 let eternalOinkActivated = false;
+let isEventActive = false;
 
 // Constants
 const offer = document.getElementById("offer");
@@ -324,7 +327,8 @@ const itemMenuTitle = document.getElementById("itemMenuTitle");
 const sellButton = document.getElementById("sellButton");
 const itemMenuContainer = document.getElementById("itemMenu");
 const useButton = document.getElementById("useButton");
-
+const armyClassPurchase = document.getElementById("armyClassPurchase");
+const coinsPurchaseButton = document.getElementById("coinPurchaseButton");
 
 // Declaring buttons
 const buttonl1 = document.getElementById("buttonl1");
@@ -465,6 +469,8 @@ function goldenHam() {
 };
 
 // Main script
+
+console.log("Welcome to **Infinite trade**");
 
 function hasItem(idToFind) {
     return inventory.some(item => item.id == idToFind);
@@ -713,6 +719,12 @@ function tradeClose(decision) {
 };
 
 function armyMenuOpening() {
+    if (isEventActive == "War") {
+        armyClassPurchase.textContent = "Exchange " + armyClassPrices[currentArmyClassNo]*10 + " social credits for a new class";
+    }
+    else {
+        armyClassPurchase.textContent = "Exchange " + armyClassPrices[currentArmyClassNo] + " social credits for a new class";
+    }
     inventoryOpen = false;
     navyOpen = false;
     inventoryMenu.style.display = "none";
@@ -746,8 +758,9 @@ function PS2Menu() {
 }
 
 function armyButton() {
+    if (isEventActive != "War") {
     if (armyClass == armyClasses[0]) {
-    addSocialCredits(1);
+        addSocialCredits(1);
     }
     else {
         addSocialCredits(2);
@@ -776,13 +789,19 @@ function armyButton() {
             armyButtonClicked = 0;
             addSocialCredits(100);
         }
-    }
+    }}
+    else {
+        addSocialCredits(2);
+    };
     
     updateClassInfo();
 };
 
 function quitArmy() {
-    if (coinsAmount >= 100) {
+    if (isEventActive == "War") {
+        alert("Sorry mate, it's war, we can not lose any of our soldiers")
+    }
+    else if (coinsAmount >= 100) {
         coinsAmount -= 100;
         coinDisplay.textContent = "Coins: " + coinsAmount;
         alert("Thank you for your service 🫡. Now, GET OUT")
@@ -833,25 +852,27 @@ function inventoryOpening() {
     }
 }
 
-function buyNewRank(price, priceSC) {
-    console.log(price + ", " + priceSC + ", " + coinsAmount + ", " + socialCreditsAmount);
+function buyNewRank() {
     if (armyClass == armyClasses[armyClasses.length-1]) {
         alert("As bright as your flame burns, there are no current promotions left. Wait for the next update ;)");
     }
     else {
-        if (coinsAmount >= price && socialCreditsAmount >= priceSC) {
-            coinsAmount -= price;
-            socialCreditsAmount -= priceSC;
-            coinDisplay.textContent = "Coins: " + coinsAmount;
+        let currentArmyPrice = armyClassPrices[currentArmyClassNo];
+        if (isEventActive == "War") {
+            currentArmyPrice *= 10;
+        }
+        if (socialCreditsAmount >= currentArmyPrice) {
+            socialCreditsAmount -= currentArmyPrice;
             socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
-            let armyClassNo;
-            for (let i = 0; i < armyClasses.length; i++) {
-                if (armyClasses[i] == armyClass) {
-                    armyClassNo = i;
-                }
+            currentArmyClassNo += 1;
+            armyClass = currentArmyPrice;
+            armyClassDisplay.textContent = "Army class: " + armyClass; 
+            if (isEventActive == "War") {
+                armyClassPurchase.textContent = "Exchange " + armyClassPrices[currentArmyClassNo]*10 + " social credits for a new class";
             }
-            armyClass = armyClasses[armyClassNo + 1];
-            armyClassDisplay.textContent = "Army class: " + armyClass;
+            else {
+                armyClassPurchase.textContent = "Exchange " + armyClassPrices[currentArmyClassNo] + " social credits for a new class";
+            }
             updateClassInfo();
         }
         else {
@@ -897,6 +918,9 @@ function updateClassInfo() {
     }
     else if (armyClass == armyClasses[4]) {
         armyHelp.textContent = "Next class will unlock: Ability to trade";
+    }
+    else {
+        armyHelp.textContent = "Next class will unlock: ???"
     };
 }
 
@@ -953,3 +977,48 @@ function ffxivMenu() {
     alert("Coming soon!");
     console.log("FFXIV Menu clicked!");
 };
+
+function war() {
+    let time = new Date();
+    let endTime = new Date(time.getFullYear(), time.getMonth(), time.getDate(), 22, 0, 0, 0);
+    let timeUntilEnd = endTime - time;
+    let displayTimeUntilEnd = timeUntilEnd;
+    let displayTimeUntilEndMeasurement = "ms";
+
+    if (timeUntilEnd >= 1000) {
+        displayTimeUntilEnd /= 1000;
+        displayTimeUntilEndMeasurement = "s";
+    }
+    if (displayTimeUntilEnd >= 60 && displayTimeUntilEndMeasurement == "s") {
+        displayTimeUntilEnd /= 60;
+        displayTimeUntilEndMeasurement = "min";
+    }
+    if (displayTimeUntilEnd >= 60 && displayTimeUntilEndMeasurement == "min") {
+        displayTimeUntilEnd /= 60;
+        displayTimeUntilEndMeasurement = "h";
+    }
+    if (displayTimeUntilEnd >= 24 && displayTimeUntilEndMeasurement == "h") {
+        displayTimeUntilEnd /= 24;
+        displayTimeUntilEndMeasurement = " days";
+    }
+
+    if (timeUntilEnd < 0 && timeUntilEnd > -5000) {
+        isEventActive = false;
+        coinsPurchaseButton.textContent = "Exchange 10 social credits for 1 coin";
+        exchangeRateSCPer1coin = 10;
+        console.log("The war event has concluded. We thank you for your participation");
+        alert("War had ended");
+    }
+    else if (timeUntilEnd > 0) {
+        console.log("**War event is currently running** and will end in " + displayTimeUntilEnd + displayTimeUntilEndMeasurement + ", at " + endTime)
+        
+        coinsPurchaseButton.textContent = "Exchange 100 social credits for 1 coin";
+        isEventActive = "War";
+        exchangeRateSCPer1coin *= 10;
+        alert("WAR HAS STARTED!!");
+
+        setTimeout(function () {war()}, timeUntilEnd);
+    }
+}
+
+war()

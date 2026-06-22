@@ -65,13 +65,14 @@
                         </div>
                         <h3 class="armySubtitle" id="armyClass">Class: Servant 3 class</h3>
                     </div>
-                    <button id="armyButton" onclick="armyButton()">Click me!</button>
+                    <button id="armyButton" onmousedown
+                    ="armyButton()">Click me!</button>
                     <h4 class="armyHelp">Help: Press button above to do your duty (wind up the generator); the more social credits you get, which you can exchange for different stuff in the storefront below. Exchangeables include coins, leaving, or better classes. Better classes unlock more features, as well as free items, social credits, and better pay</h4>
                 </div>
                 <div class="armyStore">
                     <h2 class="armyStoreTitle">Army Store</h2>
-                    <button class="purchaseButton" onclick="purchaseCoins(1)">Exchange 10 social credits for 1 coin</button>
-                    <button class="purchaseButton" onclick="buyNewRank(0, 50)">Exchange 50 social credits for a new class</button>
+                    <button class="purchaseButton" onclick="purchaseCoins(1)" id="coinPurchaseButton">Exchange 10 social credits for 1 coin</button>
+                    <button class="purchaseButton" id="armyClassPurchase" onclick="buyNewRank(0, 50)">Exchange Error -1 social credits for a new class</button>
                     <button class="purchaseButton" onclick="quitArmy()" id="quitArmyButton">Exchange 100 coins to quit army</button>
                 </div>
             </div>
@@ -116,8 +117,8 @@
         </div>
 
         <div class="version-container">
-                <p class="version" id="version">Infinite Trade v0.5a</p>
-                <p class="version build" id="build">build a17R626A</p>
+                <p class="version" id="version">Infinite Trade v0.5.5a</p>
+                <p class="version build" id="build">build a22R626A</p>
         </div>
     </div>
 
