@@ -980,7 +980,7 @@ function ffxivMenu() {
 
 function war() {
     let time = new Date();
-    let endTime = new Date(time.getFullYear(), time.getMonth(), time.getDate(), 22, 0, 0, 0);
+    let endTime = new Date(2026, 5, 23, 0, 0, 0, 0);
     let timeUntilEnd = endTime - time;
     let displayTimeUntilEnd = timeUntilEnd;
     let displayTimeUntilEndMeasurement = "ms";
@@ -1016,8 +1016,7 @@ function war() {
         isEventActive = "War";
         exchangeRateSCPer1coin *= 10;
         alert("WAR HAS STARTED!!");
-
-        setTimeout(function () {war()}, timeUntilEnd);
+        setTimeout(function () { war(); }, timeUntilEnd);
     }
 }
 
