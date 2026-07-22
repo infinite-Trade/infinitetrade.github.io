@@ -268,6 +268,96 @@ const traders = {
         },
         priority: 2,
     },
+
+    "Elon Musk": {
+        subtitle: "This is Elon Musk. Tesla co founder and CEO",
+        lootPool: {
+            "Starlink standart 4 dish": {
+                price: 349,
+                id: 24,
+                sells: false,
+                sellsforSC: false,
+                sellsfor: 0,
+                usable: false,
+                instantUse: false,
+            },
+            "Tesla Model Y": {
+                price: 50000,
+                id: 25,
+                sells: true,
+                sellsfor: 70000,
+                sellsforSC: 99999,
+                usable: false,
+                instantUse: false,
+            },
+            "CyberCoffee": {
+                price: 5,
+                id: 26,
+                sells: true,
+                sellsfor: 7,
+                sellsforSC: 50,
+                usable: false,
+                instantUse: false,
+            },
+            "CyberMug": {
+                price: 80,
+                id: 27,
+                sells: true,
+                sellsfor: 80,
+                sellsforSC: 100,
+                usable: false,
+                instantUse: false,
+            }
+        },
+        rareLoot: {
+            title: "Tesla optimus",
+            price: 30000,
+            id: 28,
+            rareLootChance: 10,
+            sells: true,
+            sellsfor: 50,
+            usable: true,
+            instantUse: false,
+            useId: 10,
+        },
+        priority: 3
+    }
+    // "Grandma": {
+    //     subtitle: "Trump's greatest enemy",
+    //     lootPool: {
+    //         "Visit to ": {
+    //             price: 1,
+    //             id: 13,
+    //             sells: false,
+    //             sellsforSC: false,
+    //             sellsfor: 0,
+    //             usable: false,
+    //             instantUse: true,
+    //         },
+    //         "Navy application": {
+    //             price: -10,
+    //             id: 14,
+    //             sells: false,
+    //             sellsforSC: false,
+    //             sellsfor: 0,
+    //             usable: false,
+    //             instantUse: true,
+    //         }
+    //     },
+    //     rareLoot: {
+    //         title: "",
+    //         price: 1000,
+    //         id: 16,
+    //         rareLootChance: 10,
+    //         sells: true,
+    //         sellsforSC: 9999999999999999,
+    //         sellsfor: 50,
+    //         usable: true,
+    //         instantUse: false,
+    //         useId: 10,
+    //     },
+    //     priority: 3
+    // },
 };
 
 let exchangeRateSCPer1coin = 10;
@@ -284,24 +374,16 @@ const politicsAdvices = ["Bro, every country is wrong atm"];
 const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()"];
 
 // Variables
-// let inventory = [];
-// let coinsAmount = 10;
-// let socialCreditsAmount = 0;
-// let armyActivated = false;
-// let navyAcivated = false;
-// let armyClass = armyClasses[0];
-// let currentArmyClassNo = 0;
-// let eternalOinkActivated = false;
 
+let isDataMissing = false;
 let inventory = [];
 let traderReward;
 let coinsAmount = 10;
 let socialCreditsAmount = 0;
 let traderRewardRNG;
 let armyActivated = false;
-let navyAcivated = false;
+let navyActivated = false;
 let armyOpen = false;
-let navyOpen = false;
 let inventoryOpen = false;
 let armyClass = armyClasses[0];
 let currentArmyClassNo = 0;
@@ -311,6 +393,38 @@ let selectedTarget;
 let useAttempts = 0;
 let eternalOinkActivated = false;
 let isEventActive = false;
+let wasEventNotificationViewed = false;
+
+// Saved variables & on DOM load
+
+console.log("Welcome to **Infinite trade**");
+
+localStorage.removeItem("inventory");
+
+let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "armyClass", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed"];
+let defaultValueList = [[], 10, 0, false, false, armyClasses[0], 0, false, false];
+for (i=0; i < savedVariableList.length; i++) {
+    if (localStorage.getItem(savedVariableList[i]) == null) {
+        localStorage.setItem(savedVariableList[i], defaultValueList[i]);
+        window[savedVariableList[i] = savedVariableList[i]];
+        isDataMissing = true;
+    }
+    else {
+        window[savedVariableList[i]] = localStorage.getItem(savedVariableList[i]);
+    }
+}
+
+// let inventory = [];
+// let coinsAmount = 10;
+// let socialCreditsAmount = 0;
+// let armyActivated = false;
+// let navyAcivated = false;
+// let armyClass = armyClasses[0];
+// let currentArmyClassNo = 0;
+// let eternalOinkActivated = false;
+// let wasEventNotificationViewed = false;
+
+
 
 // Constants
 const offer = document.getElementById("offer");
@@ -479,7 +593,24 @@ function goldenHam() {
 
 // Main script
 
-console.log("Welcome to **Infinite trade**");
+if (inventory.length != 0) {
+    buttonl2.style.display = "block";
+    console.log("inventory data detected");
+}
+
+function cheatCheck() {
+    let cheated = false;
+    for (i=1; i < savedVariableList.length; i++) {
+        if (window[savedVariableList[i]] != localStorage.getItem(savedVariableList[i])) {
+            cheated = true;
+        }
+    }
+    if (cheated == true) {
+        alert("You are a CHEATER! I mean, I just don't get you; why are you trying to ruin the fun for yourself? Anyways, press OK to delete all data")
+    }
+}
+
+cheatCheck();
 
 function hasItem(idToFind) {
     return inventory.some(item => item.id == idToFind);
@@ -614,11 +745,11 @@ function inventoryCheck() {
             alert("Thank you for applying to national army! You are now obligated to serve for the coin and the country for the grand pay of 10 coins. Clicking Ok in this prompt means that you accept giving up your trading business and working for army as the national clicker until the time limit will end");
             armyActivated = true;
         }
-        else if (hasItem(14) && navyAcivated == false) {
+        else if (hasItem(14) && navyActivated == false) {
             buttonl1.style.display = "inline-block";
             armyActivated = true;
             alert("Thank you for applying to national navy! You are now obligated to serve for the coin and the country for the grand pay of 10 coins. Clicking Ok in this prompt means that you accept giving up your trading business and working for navy as the national generator clicker until the time limit will end");
-            navyAcivated = true;
+            navyActivated = true;
         }
         else {
 
@@ -689,8 +820,8 @@ function tradeAppear() {
 };
 
 function tradeClose(decision) {
-    if ((armyActivated == true || navyAcivated == true) && (armyClass == armyClasses[0] || armyClass == armyClasses[1] || armyClass == armyClasses[2] || armyClass == armyClasses[3] || armyClass == armyClasses[4])) {
-        console.log(armyActivated + ", " + navyAcivated)
+    if ((armyActivated == true || navyActivated == true) && (armyClass == armyClasses[0] || armyClass == armyClasses[1] || armyClass == armyClasses[2] || armyClass == armyClasses[3] || armyClass == armyClasses[4])) {
+        console.log(armyActivated + ", " + navyActivated)
         alert("How dare you cheat on national services?? This removes all your social credits!!");
         socialCreditsAmount = -666;
         coinsAmount = 0;
@@ -721,6 +852,9 @@ function tradeClose(decision) {
             inventory.push(traderReward);
             console.log(traderReward);
             console.log(inventory);
+            localStorage.setItem("inventory", inventory);
+            localStorage.setItem("coinsAmount", coinsAmount);
+            localStorage.setItem("socialCreditsAmount", socialCreditsAmount);
             inventoryCheck();
         }
         setTimeout(tradeAppear, 1000);
@@ -735,7 +869,6 @@ function armyMenuOpening() {
         armyClassPurchase.textContent = "Exchange " + armyClassPrices[currentArmyClassNo] + " social credits for a new class";
     }
     inventoryOpen = false;
-    navyOpen = false;
     inventoryMenu.style.display = "none";
     if (armyActivated == true && armyOpen == false) {
         armyMenu.style.display = "flex";
@@ -815,7 +948,7 @@ function quitArmy() {
         coinDisplay.textContent = "Coins: " + coinsAmount;
         alert("Thank you for your service 🫡. Now, GET OUT")
         armyActivated = false;
-        navyAcivated = false;
+        navyActivated = false;
         armyOpen = false;
         if (hasItem(15)) {
             console.log(getItem(15))
@@ -850,7 +983,6 @@ function purchaseCoins(amount) {
 function inventoryOpening() {
     if (inventoryOpen == false) {
     armyOpen = false;
-    navyOpen = false;
     armyMenu.style.display = "none";
     inventoryMenu.style.display = "flex";
     inventoryOpen = true;
@@ -874,8 +1006,8 @@ function buyNewRank() {
             socialCreditsAmount -= currentArmyPrice;
             socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
             currentArmyClassNo += 1;
-            armyClass = currentArmyPrice;
-            armyClassDisplay.textContent = "Army class: " + armyClass; 
+            armyClass = armyClasses[currentArmyClassNo];
+            armyClassDisplay.textContent = "Current class: " + armyClass; 
             if (isEventActive == "War") {
                 armyClassPurchase.textContent = "Exchange " + armyClassPrices[currentArmyClassNo]*10 + " social credits for a new class";
             }
@@ -989,7 +1121,7 @@ function ffxivMenu() {
 
 function war() {
     let time = new Date();
-    let endTime = new Date(2026, 5, 23, 0, 0, 0, 0);
+    let endTime = new Date(2026, 6, 25, 0, 0, 0, 0);
     let timeUntilEnd = endTime - time;
     let displayTimeUntilEnd = timeUntilEnd;
     let displayTimeUntilEndMeasurement = "ms";
@@ -1011,7 +1143,7 @@ function war() {
         displayTimeUntilEndMeasurement = " days";
     }
 
-    if (timeUntilEnd < 0 && timeUntilEnd > -5000) {
+    if (timeUntilEnd < 0 && timeUntilEnd > -5000 || timeUntilEnd < 0 && wasEventNotificationViewed == true) {
         isEventActive = false;
         coinsPurchaseButton.textContent = "Exchange 10 social credits for 1 coin";
         exchangeRateSCPer1coin = 10;
@@ -1022,6 +1154,7 @@ function war() {
         console.log("**War event is currently running** and will end in " + displayTimeUntilEnd + displayTimeUntilEndMeasurement + ", at " + endTime)
         
         coinsPurchaseButton.textContent = "Exchange 100 social credits for 1 coin";
+        wasEventNotificationViewed = true;
         isEventActive = "War";
         exchangeRateSCPer1coin *= 10;
         alert("WAR HAS STARTED!!");
