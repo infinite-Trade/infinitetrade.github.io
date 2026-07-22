@@ -284,6 +284,15 @@ const politicsAdvices = ["Bro, every country is wrong atm"];
 const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()"];
 
 // Variables
+// let inventory = [];
+// let coinsAmount = 10;
+// let socialCreditsAmount = 0;
+// let armyActivated = false;
+// let navyAcivated = false;
+// let armyClass = armyClasses[0];
+// let currentArmyClassNo = 0;
+// let eternalOinkActivated = false;
+
 let inventory = [];
 let traderReward;
 let coinsAmount = 10;
