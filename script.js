@@ -50,14 +50,14 @@ const traders = {
         priority: 1
     },
 
-    "Artyom": {
-        subtitle: "The creator of Artyom's casino",
+    "The creator": {
+        subtitle: "The creator of Infinite Trade",
         lootPool: {
             "FFXIV Game Disc": {
                 price: 0,
                 id: 5,
                 sells: true,
-                sellsforSC: -999,
+                sellsforSC: false,
                 sellsfor: 10,
                 usable: true,
                 instantUse: false,
@@ -71,7 +71,7 @@ const traders = {
                 sellsfor: 800,
                 usable: true,
                 instantUse: false,
-                useId: 5,
+                useId: 17,
             },
             "PC Advice": {
                 price: 10,
@@ -82,6 +82,15 @@ const traders = {
                 usable: true,
                 instantUse: false,
                 useId: 6,
+            },
+            "Infinite Trade Advice": {
+                price: 5,
+                id: 32,
+                sells: false,
+                sellsfor: 5,
+                usable: true,
+                instantUse: false,
+                useId: 17
             }
         },
         rareLoot: {
@@ -96,7 +105,7 @@ const traders = {
             instantUse: false,
             useId: 7,
         },
-        priority: 3
+        priority: 1
     },
 
     "6-7 Kid": {
@@ -142,7 +151,7 @@ const traders = {
             usable: false,
             instantUse: true,
         },
-        priority: 1
+        priority: 2
     },
 
     "Joe Biden": {
@@ -266,7 +275,7 @@ const traders = {
             usable: true,
             instantUse: true,
         },
-        priority: 2,
+        priority: 5,
     },
 
     "Elon Musk": {
@@ -320,44 +329,46 @@ const traders = {
             instantUse: false,
             useId: 10,
         },
+        priority: 2
+    },
+    "Grandma": {
+        subtitle: "No nintendos in my household!",
+        lootPool: {
+            "Cookie": {
+                price: 0,
+                id: 29,
+                sells: true,
+                sellsforSC: false,
+                sellsfor: 2,
+                usable: false,
+                instantUse: false,
+                useId: 11
+            },
+            "Dirty dishes": {
+                price: -2,
+                id: 30,
+                sells: false,
+                sellsforSC: false,
+                sellsfor: 0,
+                usable: false,
+                instantUse: false,
+                useId: 12
+            }
+        },
+        rareLoot: {
+            title: "Old phone",
+            price: 5,
+            id: 31,
+            rareLootChance: 10,
+            sells: true,
+            sellsforSC: false,
+            sellsfor: 50,
+            usable: false,
+            instantUse: false,
+            useId: 10,
+        },
         priority: 3
-    }
-    // "Grandma": {
-    //     subtitle: "Trump's greatest enemy",
-    //     lootPool: {
-    //         "Visit to ": {
-    //             price: 1,
-    //             id: 13,
-    //             sells: false,
-    //             sellsforSC: false,
-    //             sellsfor: 0,
-    //             usable: false,
-    //             instantUse: true,
-    //         },
-    //         "Navy application": {
-    //             price: -10,
-    //             id: 14,
-    //             sells: false,
-    //             sellsforSC: false,
-    //             sellsfor: 0,
-    //             usable: false,
-    //             instantUse: true,
-    //         }
-    //     },
-    //     rareLoot: {
-    //         title: "",
-    //         price: 1000,
-    //         id: 16,
-    //         rareLootChance: 10,
-    //         sells: true,
-    //         sellsforSC: 9999999999999999,
-    //         sellsfor: 50,
-    //         usable: true,
-    //         instantUse: false,
-    //         useId: 10,
-    //     },
-    //     priority: 3
-    // },
+    },
 };
 
 let exchangeRateSCPer1coin = 10;
@@ -371,7 +382,7 @@ const mathEquasions = ["π = 3.14159265359", "e = 2.71828182846", "2 + 2 = 5", "
 const chessAdvices = ["DA ROOK", "Git gud", "Play more chess!"];
 const politicsAdvices = ["Bro, every country is wrong atm"];
 
-const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()"];
+const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()"];
 
 // Variables
 
@@ -394,22 +405,29 @@ let useAttempts = 0;
 let eternalOinkActivated = false;
 let isEventActive = false;
 let wasEventNotificationViewed = false;
+let goldenHamTimesUsed = 0;
+let cheated = false;
 
 // Saved variables & on DOM load
 
 console.log("Welcome to **Infinite trade**");
 
-localStorage.removeItem("inventory");
+localStorage.clear()
 
-let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "armyClass", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed"];
-let defaultValueList = [[], 10, 0, false, false, armyClasses[0], 0, false, false];
+let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "armyClass", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
+let defaultValueList = [[], 10, 0, false, false, armyClasses[0], 0, false, false, 0];
 for (i=0; i < savedVariableList.length; i++) {
     if (localStorage.getItem(savedVariableList[i]) == null) {
         localStorage.setItem(savedVariableList[i], defaultValueList[i]);
-        window[savedVariableList[i] = savedVariableList[i]];
         isDataMissing = true;
     }
     else {
+        if (i == 0) {
+            inventory = localStorage.getItem("inventory").split()
+        }
+        else if (i == 1 || i == 2 || i == 6 || i == 9) {
+            window[savedVariableList[i]] = number(localStorage.getItem(savedVariableList[i]));
+        }
         window[savedVariableList[i]] = localStorage.getItem(savedVariableList[i]);
     }
 }
@@ -585,10 +603,19 @@ function goldenHam() {
     alert("The golden ham you are holding is sparkling with gold. It immediately gives you 500 social credits, and the moment you eat it you triple the amount of social credits you had. Then, you find that it had sprinkled with coins this entire time and earn 200 coins. But then you look in your bank account and see that your wallet was TRIPLED");
     socialCreditsAmount *= 3;
     socialCreditsAmount += 500;
+    goldenHamTimesUsed = goldenHamTimesUsed + 1;
+    socialCreditsAmount /= goldenHamTimesUsed;
     socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+    goldenHamTimesUsed = goldenHamTimesUsed + 1;
     coinsAmount *= 2;
     coinsAmount += 200;
+    coinsAmount /= goldenHamTimesUsed;
     coinDisplay.textContent = "Coins: " + coinsAmount;
+    traders["John Pork"].lootPool["Golden Ham"].price *= goldenHamTimesUsed;
+};
+
+function gameAdvice() {
+    alert("Basically, use logic, buy items with care, and don't forget to NOT buy dumb items or there might be consequences. Thank you for playing btw");
 };
 
 // Main script
@@ -599,18 +626,23 @@ if (inventory.length != 0) {
 }
 
 function cheatCheck() {
-    let cheated = false;
-    for (i=1; i < savedVariableList.length; i++) {
+    for (i=0; i <= savedVariableList.length; i++) {
         if (window[savedVariableList[i]] != localStorage.getItem(savedVariableList[i])) {
             cheated = true;
+        }
+        else {
+            console.log(savedVariableList[i], window[savedVariableList[i]], localStorage.getItem(savedVariableList[i]))
         }
     }
     if (cheated == true) {
         alert("You are a CHEATER! I mean, I just don't get you; why are you trying to ruin the fun for yourself? Anyways, press OK to delete all data")
     }
+    else {
+        alert("not cheated")
+    }
 }
 
-cheatCheck();
+// cheatCheck();
 
 function hasItem(idToFind) {
     return inventory.some(item => item.id == idToFind);
