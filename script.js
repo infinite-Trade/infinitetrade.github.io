@@ -201,7 +201,7 @@ const traders = {
     },
 
     "Artem": {
-        subtitle: "The CEO (or just an average worker iirc) of Temu",
+        subtitle: "The CEO of Temu",
         lootPool: {
             "Weathered chess board": {
                 price: 10,
@@ -410,27 +410,105 @@ let cheated = false;
 
 // Saved variables & on DOM load
 
-console.log("Welcome to **Infinite trade**");
-
 localStorage.clear()
 
-let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "armyClass", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
-let defaultValueList = [[], 10, 0, false, false, armyClasses[0], 0, false, false, 0];
-for (i=0; i < savedVariableList.length; i++) {
-    if (localStorage.getItem(savedVariableList[i]) == null) {
-        localStorage.setItem(savedVariableList[i], defaultValueList[i]);
+
+let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
+// let defaultValueList = [[], 10, 0, false, false, 0, false, false, 0];
+
+function loadData() {
+    let loadedInventory = [];
+    let loadedCoinsAmount = localStorage.getItem("coinsAmount");
+    if (loadedCoinsAmount == null) {
         isDataMissing = true;
     }
     else {
-        if (i == 0) {
-            inventory = localStorage.getItem("inventory").split()
-        }
-        else if (i == 1 || i == 2 || i == 6 || i == 9) {
-            window[savedVariableList[i]] = number(localStorage.getItem(savedVariableList[i]));
-        }
-        window[savedVariableList[i]] = localStorage.getItem(savedVariableList[i]);
+        coinsAmount = Number(loadedCoinsAmount);
+    };
+
+    let loadedSocialCreditAmount = localStorage.getItem("socialCreditsAmount");
+    if (loadedSocialCreditAmount == null) {
+        isDataMissing = true;
+    }
+    else {
+        socialCreditsAmount = Number(loadedSocialCreditAmount);
+    };
+
+    let loadedArmyActivated = localStorage.getItem("armyActivated");
+    if (loadedArmyActivated = "1") {
+        armyActivated = true;
+    }
+    else if (loadedArmyActivated = "0") {
+        armyActivated = false;
+    }
+    else {
+        isDataMissing = true;
+    };
+
+    let loadedNavyActivated = localStorage.getItem("navyActivated")
+    if (loadedNavyActivated = "1") {
+        navyActivated = true;
+    }
+    else if (loadedNavyActivated = "0") {
+        navyActivated = false;
+    }
+    else {
+        isDataMissing = true;
+    };
+
+    let loadedCurrentArmyClassNo = localStorage.getItem("currentArmyClassNo");
+    if (loadedCurrentArmyClassNo = null) {
+        isDataMissing = true;
+    }
+    else {
+        currentArmyClassNo = loadedCurrentArmyClassNo;
+        armyClass = armyClasses[loadedCurrentArmyClassNo];
+    };
+
+    let loadedEternalOinkActivated = localStorage.getItem("eternalOinkActivated");
+    if (loadedEternalOinkActivated == null) {
+        isDataMissing = true;
+    }
+    else {
+        eternalOinkActivated = Number(loadedEternalOinkActivated);
+    };
+
+    let loadedWasEventNotificationViewed = localStorage.getItem("wasEventNotificationViewed");
+    if (loadedWasEventNotificationViewed == "0") {
+        wasEventNotificationViewed = false;
+    }
+    else if (loadedWasEventNotificationViewed == "1") {
+        wasEventNotificationViewed = true;
+    }
+    else {
+        isDataMissing = true;
+    };
+
+    let loadedGoldenHamTimesUsed = localStorage.getItem("goldenHamTimesUsed");
+    if (loadedGoldenHamTimesUsed == null) {
+        isDataMissing = true;
+    }
+    else {
+        goldenHamTimesUsed = Number(loadedGoldenHamTimesUsed);
+    }
+
+    if (isDataMissing == true) {
+        console.log("%c Some data was missing or corrupted and had been reset to default values. If you are playing this game for the 1st time or are playing on an experimental/unstable build, please ignore this message", 'color: #ff0000');
+    }
+    else {
+        console.log("Saved data loaded successfully");
     }
 }
+
+loadData()
+
+
+console.log("<< Welcome to Infinite trade >>");
+
+
+if (isDataMissing == true) {
+    console.log("Infinite trade updated");
+};
 
 // let inventory = [];
 // let coinsAmount = 10;
@@ -620,6 +698,50 @@ function gameAdvice() {
 
 // Main script
 
+// let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
+
+function saveData() {
+    localStorage.setItem("coinsAmount", String(coinsAmount));
+    localStorage.setItem("socialCreditsAmount", String(socialCreditsAmount));
+    localStorage.setItem("goldenHamTimesUsed", String(goldenHamTimesUsed));
+    localStorage.setItem("currentArmyClassNo", String(currentArmyClassNo));
+
+    if (armyActivated == true) {
+        localStorage.setItem("armyActivated", "1");
+    }
+    else {
+        localStorage.setItem("armyActivated", "0");
+    }
+
+    if (navyActivated == true) {
+        localStorage.setItem("navyActivated", "1");
+    }
+    else {
+        localStorage.setItem("navyActivated", "0");
+    }
+    
+    if (eternalOinkActivated == true) {
+        localStorage.setItem("eternalOinkActivated", "1");
+    }
+    else {
+        localStorage.setItem("eternalOinkActivated", "0");
+    }
+
+    if (wasEventNotificationViewed == true) {
+        localStorage.setItem("wasEventNotificationViewed", "1");
+    }
+    else {
+        localStorage.setItem("wasEventNotificationViewed", "0");
+    }
+
+}
+
+saveData()
+
+
+
+
+
 if (inventory.length != 0) {
     buttonl2.style.display = "block";
     console.log("inventory data detected");
@@ -629,6 +751,7 @@ function cheatCheck() {
     for (i=0; i <= savedVariableList.length; i++) {
         if (window[savedVariableList[i]] != localStorage.getItem(savedVariableList[i])) {
             cheated = true;
+            console.log(savedVariableList[i], window[savedVariableList[i]], localStorage.getItem(savedVariableList[i]))
         }
         else {
             console.log(savedVariableList[i], window[savedVariableList[i]], localStorage.getItem(savedVariableList[i]))
@@ -829,7 +952,7 @@ function tradeText() {
         let itemName = Object.keys(traderData.lootPool)[traderRewardRNG];
         traderReward.title = itemName;
         offerReward.textContent = itemName;
-        console.log(traderReward);
+        // console.log(traderReward);
     }
     offerSubtitle.textContent = traderData.subtitle;
     offerRewardTitle.textContent = traderTitle + " gives:";
@@ -891,6 +1014,7 @@ function tradeClose(decision) {
         }
         setTimeout(tradeAppear, 1000);
     }
+    saveData();
 };
 
 function armyMenuOpening() {
@@ -998,6 +1122,7 @@ function quitArmy() {
     else {
         alert("Insufficient funds!")
     }
+    saveData();
 };
 
 function purchaseCoins(amount) {
@@ -1010,6 +1135,7 @@ function purchaseCoins(amount) {
     else {
         alert("Insufficient funds!");
     }
+    saveData();
 }
 
 function inventoryOpening() {
@@ -1052,6 +1178,7 @@ function buyNewRank() {
             alert("Insufficient funds!");
         }
     }
+    saveData();
 }
 
 function sellItem() {
@@ -1074,6 +1201,7 @@ function sellItem() {
     else {
         alert("Unsellable item");
     }
+    saveData();
 }
 
 function updateClassInfo() {
@@ -1131,6 +1259,7 @@ function useItem() {
     else {
         alert("Item is not usable!");
     };
+    saveData();
 }
 
 function itemMenu(item, target) {
